@@ -30,7 +30,7 @@
             [추가] wheel로 scroll시, 해당 section에 맞는 메뉴 활성화
          -->
         <div class="header_wrap">
-            <header>
+            <header class="">
                 <h1 class="logo">STICKY</h1>
                 <ul class="gnb">
                     <li class="on"><a href="#n">Menu1</a></li>
@@ -48,5 +48,76 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <script src="stickyHeader.js"></script> -->
+    <script>
+        $(document).ready(function(){
+            var win = $(window),
+                head_wrap = $(".header_wrap"),
+                headerH = head_wrap.height(),
+                contents_wrap = $(".contents_wrap"),
+                startSticky = contents_wrap.offset().top;
+                
+                //contentId = $(".content").attr("id");
+               //console.log(contentId);     
+               var contTopArray = new Array();
+
+               $(".content").each(function(){                                                        
+                    
+                    contTopArray.push($(this).offset().top)
+                    //var myarray = new Array();
+                    //myarray.push($("#drop").val());                    
+                    console.log(contTopArray)
+                });
+                console.log("array "+contTopArray)
+
+            win.on("scroll", function(){
+                winTop = $(this).scrollTop();
+                contentsTop = $(".content").offset().top;
+                //head_wrap.addClass("scroll")
+                for(i=0; i<contTopArray[i].length; i++){
+                        // if(winTop == contTopArray[i]){
+                        //     console.log('a')
+                        // }                
+                    // if(winTop >= startSticky){
+
+                    //     contents_wrap.css({'padding-top':headerH})
+                    //     head_wrap.addClass('scroll');                   
+                    // }else{
+                    //     contents_wrap.attr("style","")
+                    //     head_wrap.removeClass('scroll')                    
+                    // }
+                    console.log("for"+i)
+                }                
+                console.log(winTop,contTopArray)
+            });
+            
+            //$(document).on("click", ".gnb li", function(e){
+            $(".gnb li").on("click", function(index){
+                //e = e.target
+                var index = $(this).index()+1;
+              //  console.log($(this).index())                
+                gnb(index);
+                // var li_index = $(this).index()+1,
+                //     content = $("#content"+li_index),
+                //     contentId = $("#content"+li_index).attr("id"),
+                //     contentOffsetTop = content.offset().top;
+
+                //     $('html').animate({scrollTop:contentOffsetTop}, 500);
+                
+                //console.log(win.height(),contentId)
+            });
+
+            function gnb(index){
+                //e = e.target;
+                var index = index,
+                    content = $("#content"+index),
+                    contentId = $("#content"+index).attr("id")
+                    contentOffsetTop = content.offset().top;
+                    $('html').animate({scrollTop:contentOffsetTop}, 500);  
+             //       console.log(index,$(index).attr("href"))              
+            }
+
+        });
+        
+    </script>
 </body>
 </html>
