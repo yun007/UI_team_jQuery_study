@@ -55,67 +55,61 @@
                 headerH = head_wrap.height(),
                 contents_wrap = $(".contents_wrap"),
                 startSticky = contents_wrap.offset().top;
-                
-                //contentId = $(".content").attr("id");
-               //console.log(contentId);     
-               var contTopArray = new Array();
+                //contTopArray = new Array();
 
-               $(".content").each(function(){                                                        
-                    
-                    contTopArray.push($(this).offset().top)
-                    //var myarray = new Array();
-                    //myarray.push($("#drop").val());                    
-                    console.log(contTopArray)
-                });
-                console.log("array "+contTopArray)
+            //    $(".content").each(function(){                                                                            
+            //         contTopArray.push($(this).offset().top);
+            //         console.log(contTopArray)
+            //     });
+            //     console.log("array "+contTopArray)
 
-            win.on("scroll", function(){
+            //win.on("scroll", function(){
+            $(document).on("scroll", win, function(){
                 winTop = $(this).scrollTop();
-                contentsTop = $(".content").offset().top;
-                //head_wrap.addClass("scroll")
-                for(i=0; i<contTopArray[i].length; i++){
-                        // if(winTop == contTopArray[i]){
-                        //     console.log('a')
-                        // }                
-                    // if(winTop >= startSticky){
-
-                    //     contents_wrap.css({'padding-top':headerH})
-                    //     head_wrap.addClass('scroll');                   
-                    // }else{
-                    //     contents_wrap.attr("style","")
-                    //     head_wrap.removeClass('scroll')                    
-                    // }
-                    console.log("for"+i)
-                }                
-                console.log(winTop,contTopArray)
+                
+                     if(winTop >= startSticky){                         
+                        contents_wrap.css({'padding-top':headerH})
+                        head_wrap.addClass('scroll');                 
+                            // for(i=0; i<contTopArray.length; i++){
+                            //     if(winTop >= contTopArray[i]){
+                            //         $(".gnb li").siblings("li").removeClass("on").eq(i).addClass("on");                                                
+                            //         //console.log('a')
+                            //     }                            
+                            // }
+                            $(".content").each(function(index){                                       
+                                 contOffset = $(this).offset().top - 87;
+                                 if(winTop >= contOffset){
+                                    $(".gnb li").siblings("li").removeClass("on").eq(index).addClass("on"); 
+                                 }
+                               console.log(index, contOffset)                                                                
+                            });
+                           // console.log("array "+contTopArray)                            
+                     }else{
+                         contents_wrap.attr("style","")
+                         head_wrap.removeClass('scroll')                    
+                     }
+                    //console.log("for"+i)
+                    console.log("scroll-top : "+winTop)
             });
             
             //$(document).on("click", ".gnb li", function(e){
             $(".gnb li").on("click", function(index){
                 //e = e.target
                 var index = $(this).index()+1;
-              //  console.log($(this).index())                
+                // console.log($(this).index())                
                 gnb(index);
-                // var li_index = $(this).index()+1,
-                //     content = $("#content"+li_index),
-                //     contentId = $("#content"+li_index).attr("id"),
-                //     contentOffsetTop = content.offset().top;
-
-                //     $('html').animate({scrollTop:contentOffsetTop}, 500);
-                
-                //console.log(win.height(),contentId)
+                return false;
             });
 
             function gnb(index){
                 //e = e.target;
                 var index = index,
                     content = $("#content"+index),
-                    contentId = $("#content"+index).attr("id")
+                    contentId = $("#content"+index).attr("id"),
                     contentOffsetTop = content.offset().top;
-                    $('html').animate({scrollTop:contentOffsetTop}, 500);  
+                    $('html').animate({scrollTop:contentOffsetTop-80}, 500);  
              //       console.log(index,$(index).attr("href"))              
-            }
-
+            };
         });
         
     </script>
