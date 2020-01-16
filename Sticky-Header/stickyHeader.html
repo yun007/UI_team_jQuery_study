@@ -64,7 +64,7 @@
             //     console.log("array "+contTopArray)
 
             //win.on("scroll", function(){
-                /*
+                
             $(document).on("scroll", win, function(){
                 winTop = $(this).scrollTop();
                 
@@ -92,41 +92,7 @@
                     //console.log("for"+i)
                     //console.log("scroll-top : "+winTop)
             });
-            */
-
-
-            // test
-            $(window).scroll(function() {
-                clearTimeout($.data(this, 'scrollTimer'));
-                $.data(this, 'scrollTimer', setTimeout(function() {
-                    // do something
-
-                    winTop = $(this).scrollTop();
-                
-                    if(winTop >= startSticky){                         
-                    contents_wrap.css({'padding-top':headerH})
-                    head_wrap.addClass('scroll');                 
-                        // for(i=0; i<contTopArray.length; i++){
-                        //     if(winTop >= contTopArray[i]){
-                        //         $(".gnb li").siblings("li").removeClass("on").eq(i).addClass("on");                                                
-                        //         //console.log('a')
-                        //     }                            
-                        // }
-                        $(".content").each(function(index){                                       
-                                contOffset = $(this).offset().top - 87;
-                                if(winTop >= contOffset){
-                                $(".gnb li").siblings("li").removeClass("on").eq(index).addClass("on"); 
-                                }
-                            console.log(index, contOffset)                                                                
-                        });
-                        // console.log("array "+contTopArray)                            
-                    }else{
-                        contents_wrap.attr("style","")
-                        head_wrap.removeClass('scroll')                    
-                    }
-                    //console.log("Haven't scrolled in 250ms!");
-                }, 300));
-            });
+            
 
             //$(document).on("click", ".gnb li", function(e){
             $(".gnb li").on("click", function(index){
