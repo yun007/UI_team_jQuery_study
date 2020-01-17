@@ -81,7 +81,7 @@
         
             // 클릭시와..휠스크롤시 활성화 이벤트 다르게 처리 하려면..???    
             function scrollType(_prop){
-                console.log(_prop)
+                //console.log(_prop)
                 clearTimeout($.data(this, 'scrollTime'));
 
                 if(_prop >= startSticky){                         
@@ -89,7 +89,7 @@
                     head_wrap.addClass('scroll');     
 
                     $.data(this, 'scrollTime', setTimeout(function() {                
-                    //setTimeout(functionscrollTime() {                
+                    //setTimeout(function scrollTime() {                
 
                         $(".content").each(function(index){                                       
                             contOffset = $(this).offset().top - 87;
@@ -97,7 +97,7 @@
                                 $(".gnb li").siblings("li").removeClass("on").eq(index).addClass("on"); 
                             }
                         });
-
+                        console.log($,this)
                     }, 300));                     
                 }else{
                     contents_wrap.attr("style","")
@@ -108,7 +108,6 @@
             };
         });
         
-        console.log($)
     </script>
 </body>
 </html>
