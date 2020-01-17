@@ -20,6 +20,7 @@
         .gnb > li.on{color:#fff;background-color:blueviolet;}
         .gnb > li a{display:block;padding:20px;font-size:20px;font-weight:700;color:#000;}
         .content{padding:30px;font-size:50px;font-weight:700;line-height:800px;color:#000;text-align:center;}
+        
     </style>
 </head>
 <body>
@@ -55,85 +56,19 @@
                 headerH = head_wrap.height(),
                 contents_wrap = $(".contents_wrap"),
                 startSticky = contents_wrap.offset().top;
-                //contTopArray = new Array();
-
-            //    $(".content").each(function(){                                                                            
-            //         contTopArray.push($(this).offset().top);
-            //         console.log(contTopArray)
-            //     });
-            //     console.log("array "+contTopArray)
-
-            //win.on("scroll", function(){
-                /*
-            $(document).on("scroll", win, function(){
-                winTop = $(this).scrollTop();
                 
-                     if(winTop >= startSticky){                         
-                        contents_wrap.css({'padding-top':headerH})
-                        head_wrap.addClass('scroll');                 
-                            // for(i=0; i<contTopArray.length; i++){
-                            //     if(winTop >= contTopArray[i]){
-                            //         $(".gnb li").siblings("li").removeClass("on").eq(i).addClass("on");                                                
-                            //         //console.log('a')
-                            //     }                            
-                            // }
-                            $(".content").each(function(index){                                       
-                                 contOffset = $(this).offset().top - 87;
-                                 if(winTop >= contOffset){
-                                    $(".gnb li").siblings("li").removeClass("on").eq(index).addClass("on"); 
-                                 }
-                               console.log(index, contOffset)                                                                
-                            });
-                           // console.log("array "+contTopArray)                            
-                     }else{
-                         contents_wrap.attr("style","")
-                         head_wrap.removeClass('scroll')                    
-                     }
-                    //console.log("for"+i)
-                    //console.log("scroll-top : "+winTop)
-            });
-            */
-
-
             // test
-            $(window).scroll(function() {
-                clearTimeout($.data(this, 'scrollTimer'));
-                $.data(this, 'scrollTimer', setTimeout(function() {
-                    // do something
-
-                    winTop = $(this).scrollTop();
-                
-                    if(winTop >= startSticky){                         
-                    contents_wrap.css({'padding-top':headerH})
-                    head_wrap.addClass('scroll');                 
-                        // for(i=0; i<contTopArray.length; i++){
-                        //     if(winTop >= contTopArray[i]){
-                        //         $(".gnb li").siblings("li").removeClass("on").eq(i).addClass("on");                                                
-                        //         //console.log('a')
-                        //     }                            
-                        // }
-                        $(".content").each(function(index){                                       
-                                contOffset = $(this).offset().top - 87;
-                                if(winTop >= contOffset){
-                                $(".gnb li").siblings("li").removeClass("on").eq(index).addClass("on"); 
-                                }
-                            console.log(index, contOffset)                                                                
-                        });
-                        // console.log("array "+contTopArray)                            
-                    }else{
-                        contents_wrap.attr("style","")
-                        head_wrap.removeClass('scroll')                    
-                    }
-                    //console.log("Haven't scrolled in 250ms!");
-                }, 300));
+            $(win).scroll(function() {
+                _prop = $(this).scrollTop();
+                scrollType(_prop);
             });
-
-            //$(document).on("click", ".gnb li", function(e){
+            
             $(".gnb li").on("click", function(index){
                 //e = e.target
-                var index = $(this).index()+1;
-                // console.log($(this).index())                
+                _prop = "click";
+                var index = $(this).index()+1;                       
                 gnb(index);
+               // scrollType(_prop);
                 return false;
             });
 
@@ -141,12 +76,39 @@
                 var index = index,
                     content = $("#content"+index),                    
                     contentOffsetTop = content.offset().top;
-                    $('html').animate({scrollTop:contentOffsetTop-80}, 500);  
-                    //$('html').animate({scrollTop:contentOffsetTop-80}, 1000, function(){alert('a')});  
-             //       console.log(index,$(index).attr("href"))              
+                    $('html').animate({scrollTop:contentOffsetTop-80}, 500);             
+            };
+        
+            // 클릭시와..휠스크롤시 활성화 이벤트 다르게 처리 하려면..???    
+            function scrollType(_prop){
+                console.log(_prop)
+                clearTimeout($.data(this, 'scrollTime'));
+
+                if(_prop >= startSticky){                         
+                    contents_wrap.css({'padding-top':headerH})
+                    head_wrap.addClass('scroll');     
+
+                    $.data(this, 'scrollTime', setTimeout(function() {                
+                    //setTimeout(functionscrollTime() {                
+
+                        $(".content").each(function(index){                                       
+                            contOffset = $(this).offset().top - 87;
+                            if(_prop >= contOffset){                                    
+                                $(".gnb li").siblings("li").removeClass("on").eq(index).addClass("on"); 
+                            }
+                        });
+
+                    }, 300));                     
+                }else{
+                    contents_wrap.attr("style","")
+                    head_wrap.removeClass('scroll');
+                    $(".gnb li").eq(0).addClass('on').siblings('li').removeClass('on')
+                }
+                //console.log('click-scroll')
             };
         });
         
+        console.log($)
     </script>
 </body>
 </html>
