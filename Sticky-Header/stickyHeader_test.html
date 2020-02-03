@@ -90,7 +90,6 @@
 
                     $.data(this, 'scrollTime', setTimeout(function() {                
                     //setTimeout(function scrollTime() {                
-
                         $(".content").each(function(index){                                       
                             contOffset = $(this).offset().top - 87;
                             if(_prop >= contOffset){                                    
@@ -99,6 +98,7 @@
                         });
                         console.log($,this)
                     }, 300));                     
+
                 }else{
                     contents_wrap.attr("style","")
                     head_wrap.removeClass('scroll');
