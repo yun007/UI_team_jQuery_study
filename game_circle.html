@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        .screen{position:relative;width:400px;height:500px;margin:0 auto;border:solid 1px brown}
+        .circle{display:none;position:absolute;width:10px;height:10px;border-radius:5px;background-color:blueviolet}
+        .circle.on{display:block}
+        .circle:active{background-color:red}
+        .btn-start{position:absolute;top:50%;left:50%;width:100px;height:50px;transform:translate(-50%, -50%)}
+    </style>
+</head>
+<body>
+    <div class="screen" id="screen">
+
+        <span class='circle'></span>
+        <button type="button" id="start" class="btn-start">Start</button>
+    </div>
+
+<script>
+    var screen = document.querySelector("#screen"),
+        circleEle = document.querySelector(".circle"),     
+        start_btn =  document.querySelector("#start"),     
+        screenWidth = screen.clientWidth,
+        screenHeight = screen.clientHeight;
+        //circleEle = document.querySelectorAll(".circle");
+        //console.log(circleEle.cloneNode());
+        //console.log(screen.clientWidth)
+        
+    /* 초기값 */
+    function init(){       
+        //start()
+        start_btn.addEventListener('click',function(){start()})
+        console.log()     
+    };
+
+    function start(){
+        var initCicle = circle_increase(10);
+        circle_clone(initCicle);   
+        start_btn.remove();
+    };
+
+    /* circle quantity */
+    function circle_increase(n){        
+        return n * 2;
+        //console.log('circle_copy')
+    };
+
+    /* circle element clone. */
+    function circle_clone(number){
+        //circleEle.cloneNode();        
+        //var cloneArray = [];       
+        
+        for(i = 0; i < number; i++){                                    
+            clone = circleEle.cloneNode();
+            clone.classList.add('no_'+[i+1], 'on');
+            circleEleAll = document.querySelectorAll(".circle"); //요걸 하나로.....
+            circleLast = circleEleAll[circleEleAll.length-1];
+            circleLast.after(clone);                        
+        };
+        circle_pos();
+        console.log(circleEleAll)
+        circleEleAll[0].classList.add('no_0','on');
+       // console.log(circleEleAll)  
+        //return circleEleAll;     
+        
+        
+    };
+
+    /* circle position */
+    function circle_pos(_el){
+        console.log()
+        //X,Y random
+        var circleEleAll = document.querySelectorAll(".circle"); //요걸 하나로.....
+            circleEleAll.forEach(function(ele){               
+                var x = Math.floor(Math.random() * screenWidth),
+                    y = Math.floor(Math.random() * screenHeight);                                        
+                ele.style.top = y+'px';
+                ele.style.left = x+'px';
+                ele.addEventListener('click',function(){click(ele)});
+            });                  
+
+        console.log('position')
+    };
+
+    function click(_el){
+        _el.remove();
+       // console.log('click',_el);
+    }; 
+
+    init();
+
+</script>
+
+
+</body>
+</html>
