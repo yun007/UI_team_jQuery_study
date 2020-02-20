@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>prototype</h1>
+    <ul class="sample-lst">
+        <li><a href="#">imtem</a></li>
+        <li><a href="#">imtem2</a></li>
+        <li><a href="#">imtem3</a></li>
+    </ul>
+    <button id="btn1" type="button">클릭</button>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>    
+<script>
+(function(win){
+    win.dosomething = win.dosomething || {}; // 
+    win.dosomething.commonJs = function(){ //win.dosomething.commonJs 객체 생성
+        //this.init()                
+        console.log('commonJs 1 : ',this)
+        this.init();
+        this.setElement();
+        this.bindEvent();
+        console.log('commonJs : ',this)
+    };
+
+    win.dosomething.commonJs.prototype = { // 생성된 win.dosomething.commonJs 객체 원형에 객체들을 부여
+        init : function(){
+            console.log('init');
+        },
+        setElement : function(){
+            this.h1 = document.getElementsByTagName('h1');
+            this.sampleLst = document.querySelector('.sample-lst');
+            this.items = this.sampleLst.children;            
+            this.$items = $(".sample-lst li"); //jQuery element
+            this.btn1 = document.querySelector('#btn1');
+            setThis = this; // js 함수실행시 this 값 가져오기위해..                        
+            console.log('setElement')
+        },
+        bindEvent : function(){
+            //console.log('bindEvent', this.h1, this.sampleLst,this.items)
+            this.items[0].addEventListener("click",function(){console.log(this,this.itemFun)}) // this.itemFunc .. this 의 기준이 바뀜. 
+            this.items[1].addEventListener("click",function(){setThis.itemFunc(), console.log('setThis = ', setThis)}) // setThis의 this 를 사용 this의 기준을 변경
+           // this.$items.on('click', $.proxy(this.itemFunc, this),console.log(this)); // jQuery 로는 proxy를 사용 this에 위임.
+            this.btn1.addEventListener("click",function(){setThis.itemFunc()});
+            
+        },
+        itemFunc : function(e){                
+            this.sampleLst.classList.toggle('toggle-class')             
+            console.log('itemFunc');
+        }
+        
+    };
+    
+    //win.dosomething = new win.dosomething.commonJs();
+    var newSome = new win.dosomething.commonJs(); // newSome이라는 새로운객체로 등록
+    //console.log(newSome.bindEvent)
+    
+}(window));    
+
+</script>    
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ie8{}
+    </style>
+    
+</head>
+<body>
+
+    <div>browser :: <span id="browser"></span></div>
+
+<script>
+
+(function(){  
+    var ua = navigator.userAgent.toLowerCase(),
+        ie8 = ua.indexOf('msie 8.0'),
+        ie9 = ua.indexOf('msie 9.0'),
+        ie10 = ua.indexOf('msie 10'),
+        ie11 = ua.indexOf('rv:11'),
+        edge = ua.indexOf('edge'),
+        chrome = ua.indexOf('chrome'),
+        firefox = ua.indexOf('firefox'),
+        root = document.documentElement, //html
+        browser ;
+
+    if(ie8 !=-1){
+        browser = 'ie8';
+    }else if(ie9 !=-1){
+        browser = 'ie9';
+    }else if(ie10 !=-1){
+        browser = 'ie10';
+    }else if(ie11 !=-1){
+        browser = 'ie11';
+    }else if(edge !=-1){
+        browser = 'edge';
+    }else if(chrome !=-1){
+        browser = 'chrome';
+    }else if(firefox !=-1){
+        browser = 'firefox';        
+    }
+    root.setAttribute("class",browser);
+    
+    document.getElementById("browser").innerText = browser; 
+    console.log(ua)
+}());
+
+
+
+</script>    
+</body>
+</html>
