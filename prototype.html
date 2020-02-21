@@ -21,13 +21,14 @@
         //this.init()                
         console.log('commonJs 1 : ',this)
         this.init();
-        this.setElement();
-        this.bindEvent();
-        console.log('commonJs : ',this)
+
     };
 
     win.dosomething.commonJs.prototype = { // 생성된 win.dosomething.commonJs 객체 원형에 객체들을 부여
         init : function(){
+            this.setElement();
+            this.bindEvent();
+            console.log('commonJs : ',this)            
             console.log('init');
         },
         setElement : function(){
@@ -56,7 +57,7 @@
     
     //win.dosomething = new win.dosomething.commonJs();
     var newSome = new win.dosomething.commonJs(); // newSome이라는 새로운객체로 등록
-    //console.log(newSome.bindEvent)
+    console.log(newSome.init)
     
 }(window));    
 
